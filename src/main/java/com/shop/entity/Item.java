@@ -8,16 +8,16 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name="item")
+@Entity // 클래스를 엔티티로 선언
+@Table(name="item") // 이 엔티티 클래스는 item 테이블과 맵핑된다.
 @Getter
 @Setter
 @ToString
 public class Item {
 
-    @Id
-    @Column(name="item_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id // 기본키로 사용할 필드 지정
+    @Column(name="item_id") // 필드와 컬럼 맵핑
+    @GeneratedValue(strategy = GenerationType.AUTO) // 키 값생성방법
     private Long id;    // 상품 코드
 
     @Column(nullable = false, length = 50)
@@ -33,7 +33,7 @@ public class Item {
     @Column(nullable = false)
     private String itemDetail;  //상품 상세 설명
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)    // enum 타입 맵핑
     private ItemSellStatus itemSellStatus;  // 상품 판매 상태
     
     private LocalDateTime reTime;   // 등록 시간
