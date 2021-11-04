@@ -1,11 +1,8 @@
 package com.shop.entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -23,7 +20,8 @@ public class OrderItem extends BaseEntity {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private int orderPrice; // 주문가격
+    private int orderPrice; //주문가격
 
-    private int count;  // 수량
+    private int count; //수량
+
 }

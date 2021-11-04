@@ -1,6 +1,5 @@
 package com.shop.entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,4 +22,5 @@ public abstract class BaseTimeEntity {
 
     @LastModifiedDate
     private LocalDateTime updateTime;
+
 }

@@ -22,7 +22,7 @@ public class Member extends BaseEntity {
 
     private String name;
 
-    @Column(unique = true)  // 동일한 값이 들어올 수 없도록    private String email;
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -32,8 +32,7 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public static Member createMember(MemberFormDto memberFormDto,
-                                      PasswordEncoder passwordEncoder) {
+    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
@@ -43,4 +42,5 @@ public class Member extends BaseEntity {
         member.setRole(Role.ADMIN);
         return member;
     }
+
 }

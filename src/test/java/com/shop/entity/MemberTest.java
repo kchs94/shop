@@ -8,18 +8,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
 @SpringBootTest
 @Transactional
-@TestPropertySource(locations = "classpath:application-test.properties")
-class MemberTest {
+@TestPropertySource(locations="classpath:application-test.properties")
+public class MemberTest {
 
     @Autowired
     MemberRepository memberRepository;
@@ -30,7 +26,7 @@ class MemberTest {
     @Test
     @DisplayName("Auditing 테스트")
     @WithMockUser(username = "gildong", roles = "USER")
-    public void auditingTest() {
+    public void auditingTest(){
         Member newMember = new Member();
         memberRepository.save(newMember);
 
@@ -45,4 +41,5 @@ class MemberTest {
         System.out.println("create member : " + member.getCreatedBy());
         System.out.println("modify member : " + member.getModifiedBy());
     }
+
 }
