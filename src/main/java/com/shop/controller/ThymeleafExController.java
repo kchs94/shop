@@ -12,25 +12,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value="/thymeleaf")
+@RequestMapping(value="/thymeleaf") // "/thymeleaf" 경로오 오는 요청은 이 컨트롤러로
 public class ThymeleafExController {
 
     @GetMapping(value = "/ex01")
-    public String thymeleafExample01(Model model){
-        model.addAttribute("data", "타임리프 예제 입니다.");
-        return "thymeleafEx/thymeleafEx01";
+    public String thymeleafExample01(Model model){  // model객체를 이용해 view에
+        model.addAttribute("data", "타임리프 예제 입니다.");// 전달할 데이터를
+        return "thymeleafEx/thymeleafEx01"; //key-value 구조로 넣어준다.
     }
 
     @GetMapping(value = "/ex02")
     public String thymeleafExample02(Model model){
-        ItemDto itemDto = new ItemDto();
+        ItemDto itemDto = new ItemDto();    // 객체를 생성
         itemDto.setItemDetail("상품 상세 설명");
         itemDto.setItemNm("테스트 상품1");
         itemDto.setPrice(10000);
         itemDto.setRegTime(LocalDateTime.now());
 
-        model.addAttribute("itemDto", itemDto);
-        return "thymeleafEx/thymeleafEx02";
+        model.addAttribute("itemDto", itemDto); // 모델에 객체를 담아
+        return "thymeleafEx/thymeleafEx02"; //뷰에 전달
     }
 
     @GetMapping(value = "/ex03")

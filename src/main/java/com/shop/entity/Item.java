@@ -9,16 +9,16 @@ import lombok.ToString;
 import javax.persistence.*;
 import com.shop.dto.ItemFormDto;
 
-@Entity
+@Entity // JPA에서 관리한다.
 @Table(name="item")
 @Getter
 @Setter
 @ToString
 public class Item extends BaseEntity {
 
-    @Id
-    @Column(name="item_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id // 기본키(Primary Key) 설정
+    @Column(name="item_id") // 필드와 컬럼 매핑. 컬럼의 다양한 제약조건 추가.
+    @GeneratedValue(strategy = GenerationType.AUTO) // 기본키 속성 지정:값 자동 증가
     private Long id;       //상품 코드
 
     @Column(nullable = false, length = 50)
@@ -34,7 +34,7 @@ public class Item extends BaseEntity {
     @Column(nullable = false)
     private String itemDetail; //상품 상세 설명
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)    // enum 타입 매핑
     private ItemSellStatus itemSellStatus; //상품 판매 상태
 
     public void updateItem(ItemFormDto itemFormDto){

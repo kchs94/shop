@@ -28,14 +28,14 @@ import org.thymeleaf.util.StringUtils;
 @TestPropertySource(locations="classpath:application-test.properties")
 class ItemRepositoryTest {
 
-    @Autowired
+    @Autowired  // ItemRepository를 사용하기 위해 Bean 주입
     ItemRepository itemRepository;
 
-    @PersistenceContext
+    @PersistenceContext // 영속성 컨텍스트를 사용하기 위해 @PersistenceContext를 사용 빈 주입
     EntityManager em;
 
-    @Test
-    @DisplayName("상품 저장 테스트")
+    @Test   // 테스트 메소드 선언
+    @DisplayName("상품 저장 테스트")   // 테스트명 설정
     public void createItemTest(){
         Item item = new Item();
         item.setItemNm("테스트 상품");
@@ -49,6 +49,8 @@ class ItemRepositoryTest {
         System.out.println(savedItem.toString());
     }
 
+    // 테스트 코드 실행 시 안에 데이터가 없으므로  데이터 생성을 위해 10개의 상품을 저장하는 메소드를 작성하고
+    // findByItemNmTest()에서 실행하기
     public void createItemList(){
         for(int i=1;i<=10;i++){
             Item item = new Item();
@@ -66,7 +68,7 @@ class ItemRepositoryTest {
     @DisplayName("상품명 조회 테스트")
     public void findByItemNmTest(){
         this.createItemList();
-        List<Item> itemList = itemRepository.findByItemNm("테스트 상품1");
+        List<Item> itemList = itemRepository.findByItemNm("테스트 상품1");   // 테스트할 메소드
         for(Item item : itemList){
             System.out.println(item.toString());
         }
@@ -116,14 +118,14 @@ class ItemRepositoryTest {
     @DisplayName("Querydsl 조회 테스트1")
     public void queryDslTest(){
         this.createItemList();
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em); // 쿼리 동적으로 생성하기
         QItem qItem = QItem.item;
-        JPAQuery<Item> query  = queryFactory.selectFrom(qItem)
+        JPAQuery<Item> query  = queryFactory.selectFrom(qItem)  // 자바 코드이지만 SQL문과 비슷하게 사용가능
                 .where(qItem.itemSellStatus.eq(ItemSellStatus.SELL))
                 .where(qItem.itemDetail.like("%" + "테스트 상품 상세 설명" + "%"))
                 .orderBy(qItem.price.desc());
 
-        List<Item> itemList = query.fetch();
+        List<Item> itemList = query.fetch();    // fetch()시점에 쿼리문 실행된다.
 
         for(Item item : itemList){
             System.out.println(item.toString());
@@ -162,7 +164,7 @@ class ItemRepositoryTest {
 
         this.createItemList2();
 
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();   // 쿼리에 들어갈 조건을 만드는 것
         QItem item = QItem.item;
         String itemDetail = "테스트 상품 상세 설명";
         int price = 10003;
@@ -170,6 +172,7 @@ class ItemRepositoryTest {
 
         booleanBuilder.and(item.itemDetail.like("%" + itemDetail + "%"));
         booleanBuilder.and(item.price.gt(price));
+
         System.out.println(ItemSellStatus.SELL);
         if(StringUtils.equals(itemSellStat, ItemSellStatus.SELL)){
             booleanBuilder.and(item.itemSellStatus.eq(ItemSellStatus.SELL));

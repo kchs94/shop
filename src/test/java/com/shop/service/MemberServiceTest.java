@@ -24,7 +24,7 @@ class MemberServiceTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public Member createMember(){
+    public Member createMember(){   // 회원 정보를 입력한 Member 엔티티 만드는 메소드
         MemberFormDto memberFormDto = new MemberFormDto();
         memberFormDto.setEmail("test@email.com");
         memberFormDto.setName("홍길동");
@@ -36,8 +36,14 @@ class MemberServiceTest {
     @Test
     @DisplayName("회원가입 테스트")
     public void saveMemberTest(){
+
+        //gvein
         Member member = createMember();
+
+        //when
         Member savedMember = memberService.saveMember(member);
+
+        //that
         assertEquals(member.getEmail(), savedMember.getEmail());
         assertEquals(member.getName(), savedMember.getName());
         assertEquals(member.getAddress(), savedMember.getAddress());

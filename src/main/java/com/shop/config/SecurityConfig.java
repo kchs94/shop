@@ -15,13 +15,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity  // SpringSecurityFilterChain 자동 포함
+public class SecurityConfig extends WebSecurityConfigurerAdapter {  // 메소드 오버라이딩을 통한 보안 설정하기
 
     @Autowired
     MemberService memberService;
 
-    @Override
+    @Override   // http 요청에 대한 보안 설정 1.페이지 권한 설정 2.로그인 페이지 설정 3.로그아웃 메소드등
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/members/login")
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 
-    @Bean
+    @Bean   // BCryptPasswordEncoder를 통해 비밀번호를 암호화하여 저장한다.
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
